@@ -1817,7 +1817,7 @@ footer .inner-footer-bottom p a {
   }
 
   .overview .content_section p {
-    text-align: justify;
+    text-align: left;
   }
 
   header.fixed-header .navbar-nav .nav-link {
@@ -1829,7 +1829,7 @@ footer .inner-footer-bottom p a {
   }
 
   .contact_section p {
-    text-align: justify;
+    text-align: left;
   }
 
   .ptb {
