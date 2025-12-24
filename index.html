@@ -1368,17 +1368,32 @@
                 $("body").removeClass("mobile-open");
             });
         });
-
-
-        $(document).ready(function () {
-            setTimeout(() => {
-                $("#exampleModal1").modal("show")
-            }, 30000);
-        })
-
-
     </script>
 
+    <script>
+        $(document).ready(function () {
+            // Stop completely if already submitted
+            if (localStorage.getItem("enquirySubmitted")) return;
+
+            let popupTimer;
+
+            function startPopupTimer() {
+                if (localStorage.getItem("enquirySubmitted")) return;
+
+                popupTimer = setTimeout(() => {
+                    $("#exampleModal1").modal("show");
+
+                }, 15000);
+            }
+            startPopupTimer();
+            $("#exampleModal1").on("hidden.bs.modal", function () {
+                if (localStorage.getItem("enquirySubmitted")) return;
+
+                startPopupTimer();
+            });
+
+        });
+    </script>
 
     <script defer="">
         $(document).ready(function () {
@@ -1520,7 +1535,7 @@
                     .then(res => res.json())
                     .then(data => {
                         if (data.status === "success") {
-
+                            localStorage.setItem("enquirySubmitted", "true");
                             alert("Form submitted successfully!");
                             document.body.focus();
                             $("#exampleModal1").modal("hide");
@@ -1535,6 +1550,9 @@
                                 document.body.removeChild(a);
                                 downloadFileUrl = null;
                             }
+
+                            window.location.href =
+                                "/thankyou.html";
 
                         } else {
                             alert(data.message || "Something went wrong");
